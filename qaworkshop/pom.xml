@@ -7,6 +7,37 @@
     <groupId>org.intive.patronage</groupId>
     <artifactId>qa.workshop</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.uncommons</groupId>
+            <artifactId>reportng</artifactId>
+            <version>1.1.4</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.testng</groupId>
+                    <artifactId>testng</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -19,8 +50,37 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <forkCount>5</forkCount>
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value>
+                        </property>
+                        <property>
+                            <name>listener</name>
+                            <value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>
+                        </property>
+                    </properties>
+                    <!--                    Wskazanie katalogu, w którym zostaną umieszczone wyniki uruchomienia testów oraz skompilowane klasy,
+                                        ale tylko jeżeli użyjemy komendy mvn test lub mvn clean test, jeżeli testy uruchomimy z poziomu IDE,
+                                        to wyniki nie zostaną zapisane do target
+                                        mvn test - uruchom testy
+                                        mvn clean test - wyczyść katalog target i uruchom testy - rekomendowane-->
+                    <workingDirectory>target/</workingDirectory>
+                    <!--                    Wskazanie, że negatywny wynik testów nie wpłynie na powodzenie builda-->
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <!--                    Wskazanie pliku, z którego wczytane zostaną testy, możliwe jest podanie kilku plików oddzielonych przecinkami,
+                                            wtedy zostaną one wykonane w takiej kolejności, w jakiej je podaliśmy, ale maven potraktuje je jako
+                                            jeden zestaw testów - bardzo wygodne i użyteczne, ponieważ dzięki temu możemy tworzyć sobie kilka plików
+                                            z testami np. konkretnych kawałków systemu, którymi łatwiej jest nam zarządzać i sprawować kontrolę-->
+                    <suiteXmlFiles>test.xml,googleSuite.xml</suiteXmlFiles>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-
 </project>

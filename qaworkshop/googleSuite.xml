@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Google suite">
+    <test name="Search for Selenium in Maven repository">
+        <classes>
+            <class name="google.search.BasicGoogleSearchTest"/>
+        </classes>
+    </test>
+</suite>

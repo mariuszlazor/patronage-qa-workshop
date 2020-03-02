@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="My first suite">
+    <test name="My first test">
+        <classes>
+            <class name="basic.BasicTest"/>
+        </classes>
+    </test>
+    <test name="Sum test">
+        <classes>
+            <class name="sum.SumTest"/>
+        </classes>
+    </test>
+</suite>
